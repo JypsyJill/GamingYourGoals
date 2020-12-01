@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import posts from "./../../post_data.json";
-import "./Post.css";
+// import "./Post.css";
 
-let displayGoals = posts.map(post => {
-        return(
-            <li key={post.id}>
-                <Link to={`/post/${post.id}`}>{post.title}</Link>
-            </li>
+class Dashboard extends Component {
+    render() {
+        return (
+          <div className="Dashboard">
+            <h1>Welcome to the DevMountain tech blog!</h1>
+            <h2>Head over to the topic browser to see all the latest posts!</h2>
+          </div>
         );
-    });
-
+      }
+    }
 
 export default Dashboard; 
