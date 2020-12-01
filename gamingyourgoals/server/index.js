@@ -28,7 +28,7 @@ massive({
     }
 }).then( db => {
     app.set('db', db)
-    console.log('Hey! Get out of my swamp!')
+    console.log(`I ain't saying you're a goal digger...`)
 }).catch( err => console.log(err));
 
 // Auth endpoints
