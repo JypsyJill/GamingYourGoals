@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { HashRouter } from "react-router-dom";
+import axios from 'axios';
 import routes from "./routes";
 import Nav from "./Components/Nav/Nav";
 import "./App.css";
