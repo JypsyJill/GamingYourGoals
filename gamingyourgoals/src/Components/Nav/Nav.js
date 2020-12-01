@@ -9,6 +9,9 @@ class Nav extends Component {
 
             <div>
                 <h1>Nav</h1>
+                <button> Home </button>
+                <button> New Goal </button>
+                <button> Logout </button>
             </div>
         );
     }
