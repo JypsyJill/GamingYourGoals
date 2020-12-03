@@ -3,11 +3,11 @@ CREATE TABLE goal_digger (
     email VARCHAR(60) NOT NULL,
     username VARCHAR(20) NOT NULL,
     password TEXT NOT NULL,
-    telephoneNo VARCHAR(12) 
+    telephone_num VARCHAR(12) 
 ); 
 
-INSERT INTO goal_diggers (email, username, password, telephoneNo)
-VALUES (jillyn_oc_ca@yahoo.com, jypsyjill, Junker001!, 8016964560);
+INSERT INTO goal_diggers (email, username, password, telephone_num)
+VALUES ('jillyn_oc_ca@yahoo.com', 'jypsyjill', 'Junker001!', '+18016964560');
 
 CREATE TABLE goals (
     goal_id SERIAL PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE goals (
 );
 
 INSERT INTO goals (goal_type, start_date, end_date, target_number, timeZone, timeToText)
-VALUES ('miles', 2020-12-01, 2020-12-31, 250, 'MST', 05:15:00)
+VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
 
 CREATE TABLE gamePlay (
     username INT REFERENCES goal_diggers(username),
