@@ -9,14 +9,14 @@ CREATE TABLE goal_digger (
 INSERT INTO goal_diggers (email, username, password, telephone_num)
 VALUES ('jillyn_oc_ca@yahoo.com', 'jypsyjill', 'Junker001!', '+18016964560');
 
-CREATE TABLE goals (
+CREATE TABLE plan (
     goal_id SERIAL PRIMARY KEY,
     goal_type VARCHAR(20)
-    start_date DATE,
+    beginning_date DATE,
     end_date DATE,
     target_number INTEGER(20),
-    timeZone VARCHAR(20),
-    timeToText TIMESTAMP
+    timezone VARCHAR(20),
+    timetotext TIMESTAMP
     
 );
 
