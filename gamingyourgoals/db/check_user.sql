@@ -1,2 +1,2 @@
 SELECT * FROM goal_diggers
-WHERE email = ;
+WHERE email = $1;
