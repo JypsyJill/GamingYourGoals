@@ -25,5 +25,5 @@ VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
 
 CREATE TABLE gamePlay (
     username INT REFERENCES goal_diggers(username),
-    dailyGoalsArray 
+    daily_goals_array 
 )
