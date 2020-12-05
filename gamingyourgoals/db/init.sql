@@ -3,9 +3,10 @@ CREATE TABLE goal_diggers (
     email VARCHAR(60) NOT NULL,
     username VARCHAR(20) NOT NULL,
     password TEXT NOT NULL,
+    telno VARCHAR NOT NULL
   ); 
 
-CREATE TABLE plan (
+CREATE TABLE goal (
     goal_id SERIAL PRIMARY KEY,
     goal_type VARCHAR(20)
     beginning_date DATE,
@@ -16,8 +17,8 @@ CREATE TABLE plan (
     
 );
 
-INSERT INTO plan (goal_type, start_date, end_date, target_number, timeZone, timeToText)
-VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
+-- INSERT INTO goal (goal_type, start_date, end_date, target_number, timeZone, timeToText)
+-- VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
 
 -- CREATE TABLE gamePlay (
 --     username INT REFERENCES goal_diggers(username),
