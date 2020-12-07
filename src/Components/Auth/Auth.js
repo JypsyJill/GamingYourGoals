@@ -8,6 +8,7 @@ class Auth extends Component {
             email: '',
             username: '',
             password: '',
+            telno: '',
             newUser: false
         }
     }
@@ -26,9 +27,9 @@ class Auth extends Component {
 
     login = async (e) => {
         e.preventDefault();
-        const {email, password} = this.state
+        const {email, password, telno } = this.state
         try {
-            const user = await axios.post('/auth/login', {email, password})
+            const user = await axios.post('/auth/login', {email, password, telno})
             alert(user.data.email);
             this.props.history.push('/feed')
         } 
@@ -39,9 +40,9 @@ class Auth extends Component {
 
     register = async (e) => {
         e.preventDefault();
-        const {email, password, username} = this.state
+        const {email, password, username, telno} = this.state
         try {
-            const user = await axios.post('/auth/register', {email, username, password})
+            const user = await axios.post('/auth/register', {email, username, password, telno})
             alert(user);
             this.props.history.push('/feed')
         } 
@@ -51,7 +52,7 @@ class Auth extends Component {
     }
 
     render(){
-        const {email, password, username} = this.state;
+        const {email, password, username, telno} = this.state;
         return(<div>
             {this.state.newUser ? 
             <div>
@@ -76,6 +77,13 @@ class Auth extends Component {
                         placeholder="password" 
                         onChange={ e => this.changeHandler(e)}
                     />
+                    <input 
+                        name="telno" 
+                        value={telno} 
+                        placeholder="Texting Number" 
+                        onChange={ e => this.changeHandler(e)}
+                    />
+                    
                     <button>Submit</button>
                 </form>
                 <button onClick={this.toggleNewUser}>Already a user?</button>

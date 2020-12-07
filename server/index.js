@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const ctrl = require('./controllers/authController')
 const massive = require('massive');
 const session = require('express-session');
 
@@ -27,7 +28,7 @@ massive({
     }
 }).then( db => {
     app.set('db', db)
-    console.log('Hey! Get out of my swamp!')
+    console.log(`I ain't saying you're a goal digger...`)
 }).catch( err => console.log(err));
 
 // Auth endpoints
@@ -37,4 +38,4 @@ app.post('/auth/logout', auth.logout);
 app.get('/api/user', auth.getUser);
 
 
-app.listen(port, () => console.log(`Hello Seattle, I'm listening... on port ${port}`));
+app.listen(SERVER_PORT, () => console.log(`Hello Seattle, I'm listening... on port ${SERVER_PORT}`));
