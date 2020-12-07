@@ -18,14 +18,12 @@ const Nav = () => {
 
     return(
         <div>
-            <h1>Nav</h1>
+            <h1>Gaming Your Goals</h1>
             <Link to='/dashboard'>
                 <button> Home </button>
             </Link>
-            {/* update to goals */}
-            <Link to="/post">
-                <button> New Goal </button>
-            </Link>
+    
+           
             <button onClick={() => logout()}> Logout </button>
         </div>
     );

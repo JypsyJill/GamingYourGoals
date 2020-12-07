@@ -1,11 +1,11 @@
   
-.Post {
+.Goals {
     background: white;
     padding: 200px;
     min-height: 100vh;
   }
   
-  .Post p {
+  .Goals p {
     color: #252525;
     line-height: 200%;
   }
