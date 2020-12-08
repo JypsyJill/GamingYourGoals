@@ -7,6 +7,7 @@ const session = require('express-session');
 
 const {SESSION_SECRET, SERVER_PORT, CONNECTION_STRING} = process.env;
 const auth = require('./controllers/authController');
+const goals = require('./controllers/goalsController');
 
 const app = express();
 
@@ -35,8 +36,8 @@ massive({
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
 app.post('/auth/logout', auth.logout);
-app.post('/api/goals', goals.setNewGoal);
-app.put('/api/goals/:id', goals.updateGoal);
+app.post('/api/goal', goals.setNewGoal);
+app.put('/api/goal/:id', goals.updateGoal);
 app.get('/api/user', auth.getUser);
 
 

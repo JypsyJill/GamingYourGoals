@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 
 class Goals extends Component {
@@ -33,7 +33,7 @@ class Goals extends Component {
     setNewGoal = async e => {
         e.preventDefault()
         try {
-            const goal = await axios.post("/api/goals/setNewGoal", this.state)
+            const goal = await axios.post("/api/goal/setNewGoal", this.state)
             alert(goal)
             this.props.history.push("/feed")
         } catch (err) {

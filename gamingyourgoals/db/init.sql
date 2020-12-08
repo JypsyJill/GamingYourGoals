@@ -8,13 +8,14 @@ CREATE TABLE goal_diggers (
 
 CREATE TABLE goal (
     goal_id SERIAL PRIMARY KEY,
-    goal_type VARCHAR(20)
+    goal_type VARCHAR(20),
     beg_date DATE,
     end_date DATE,
-    target_number INTEGER(20),
-    time_zone VARCHAR(20),
+    target_number INTEGER,
+    time_zone VARCHAR,
     time_to_text TIME,
     no_prog_days_of_wk INTEGER,
-    no_prog_cal_days DATE
+    no_prog_cal_days DATE,
+    goal_prog INTEGER
     
 );
