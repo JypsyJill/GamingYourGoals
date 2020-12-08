@@ -35,6 +35,8 @@ massive({
 app.post('/auth/register', auth.register);
 app.post('/auth/login', auth.login);
 app.post('/auth/logout', auth.logout);
+app.post('/api/goals', goals.setNewGoal);
+app.put('/api/goals/:id', goals.updateGoal);
 app.get('/api/user', auth.getUser);
 
 

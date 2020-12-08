@@ -18,11 +18,3 @@ CREATE TABLE goal (
     no_prog_cal_days DATE
     
 );
-
--- INSERT INTO goal (goal_type, start_date, end_date, target_number, timeZone, timeToText)
--- VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
-
--- CREATE TABLE gamePlay (
---     username INT REFERENCES goal_diggers(username),
---     daily_goals_array 
--- )

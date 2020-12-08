@@ -15,7 +15,7 @@ class Goals extends Component {
             time_to_text: '',
             no_prog_days_of_wk: '',
             no_prog_cal_days: '',
-            newGoal: true
+            
         }
     }
     toggleNewGoal = () => {
@@ -26,100 +26,55 @@ class Goals extends Component {
 
     changeHandler = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.id]: e.target.value
         })
     }
 
-    setNewGoal = async (e) => {
-        e.preventDefault();
-        const {goal_type, beg_date, end_date, target_number, time_zone, time_to_text, no_prog_days_of_wk, no_prog_cal_days} = this.state;
+    setNewGoal = async e => {
+        e.preventDefault()
         try {
-            const goal = await axios.post('/goals/setNewGoal', {goal_type, beg_date, end_date, target_number, time_zone, time_to_text, no_prog_days_of_wk, no_prog_cal_days})
-            alert(goal);
-            this.props.history.push('/feed')
-        }
-        catch(err){
+            const goal = await axios.post("/api/goals/setNewGoal", this.state)
+            alert(goal)
+            this.props.history.push("/feed")
+        } catch (err) {
             alert(err.response.request.response)
         }
     }
     
     render() {
-        const {goal_type, beg_date, end_date, target_number, time_zone, time_to_text, no_prog_days_of_wk, no_prog_cal_days} = this.state;
-        return (<div>
-            {this.state.newGoal ?
+        const goalInputsMapped = [
+            {id: "goal_type", label: "What are we counting? (words, steps, miles)", type: "text"},
+            {id: "beg_date", label: "When are you starting?", type: "date"},
+            {id: "end_date", label: "When are you finishing?", type: "date"},
+            {id: "target_number", label: "How many total will complete your goal? " , type: "number" },
+            {id: "time_zone", label: "What is your time zone?" , type: "text" },
+            {id: "time_to_text", label: "What time would you like to receive your challenge each day?", type: "time" },
+            {id: "no_prog_days_of_wk", label:"Do you black out any days of the week from your progress? (like Sundays, etc.)" , type: "text" },
+            {id: "no_prog_cal_days", label: "Are there any specific dates you're not going to work on?" , type: "date" }
+          ];
+        return (
+           
             <div>
-              <h1>Ready to Game Your Goals?</h1>
-              <p> What are we counting? </p>
-              <form onSubmit={e => this.setNewGoal(e)}>
-                <input 
-                    name="goal_type"
-                    value={goal_type}
-                    placeholder="(words, miles, steps)"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-              <p> When are you starting? </p>
-
-              <input 
-                    name="beg_date"
-                    value={beg_date}
-                    placeholder="Start Date"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-              <p> What is your finish date? </p>
-              <input 
-                    name="end_date"
-                    value={end_date}
-                    placeholder="Finish Date"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-              <p> How many total will complete your goal? </p>
-              <input 
-                    name="target_number"
-                    value={target_number}
-                    placeholder="No commas, please"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-              <p> Do you blackout any days from your progress?</p>
-              {/* I want this to be a drop-down */}
-              <input 
-                    name="no_prog_days_of_wk"
-                    value={no_prog_days_of_wk}
-                    placeholder="days"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-                  <p> e.g. Sundays, holidays, your anniversary, or spouse's birthday</p>
-                  {/* I want this to be a calendar drop-down as well, with selectable dates */}
-                  <input 
-                    name="no_prog_cal_days"
-                    value={no_prog_cal_days}
-                    placeholder="dates"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-                  <p> What is your time zone?</p>
-                  <input 
-                    name="time_zone"
-                    value={time_zone}
-                    placeholder="MST"
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-                  {/* I want this to be a drop-down as well, US Time Zones only */}
-                  <p> What time would you like to be texted your daily target?</p>
-                  <input 
-                    name="time_to_text"
-                    value={time_to_text}
-                    placeholder=""
-                    onChange={ e=> this.changeHandler(e)}
-                /> 
-                 {/* This could be a drop-down with 15 minute increments */}
-
+                <form onSubmit={e => this.setNewGoal(e)}>
+                    
+            {goalInputsMapped.map(goalInput => (
+                <div className="goal-input">
+                    <label htmlFor={goalInput.id}>{goalInput.label}</label>
+                    <input type={goalInput.type} id={goalInput.id} onChange={e => this.changeHandler(e)}/>
+                </div>
+            
+            ))}
                 <button>Submit</button>
-              </form>
+                </form>
               <button onClick={this.toggleNewGoal}> Cancel input and start over? </button>
-            </div>: null}
             </div>
+            
         )
         
     }
 }
 
 export default Goals;  
+
+
+
