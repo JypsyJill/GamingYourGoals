@@ -1,4 +1,4 @@
-let cjDays = 1;
+let cjDays = ;
 let cjGoal = 2238/cjDays;
 let cjMin = (cjGoal *.85)
 let cjMax = (cjGoal *1.15)

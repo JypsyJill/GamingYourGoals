@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-import posts from "./../../post_data.json";
 // import "./Goals.css";
 
 class Dashboard extends Component {
@@ -13,9 +12,19 @@ class Dashboard extends Component {
             <h3> 2. Rules </h3>
             <h3> 3. Objective </h3>
             <h3> 4. Feedback </h3>
-            <h3> This is a goal-tracking and "gaming" app. The most successful goals are measured closely and courses corrected if short-term goals are not met. Can we help you meet your goal?  </h3>
+            <h3> This is how Gaming Your Goals works:
+              <p> Input your target total number of whatever you're counting and your finish date. (words, miles, steps, dollars, etc.) </p> 
+              <p>  Each day that you are working on your goal you will get a text with a randomly generated number of that item to work toward. </p>
+               <p> Each evening you will report on your progress toward your goal and confirm that your next text will arrive at a specific time on the next prescribed day unless you cancel it. (We get it, life happens.)</p>
+                <p>The progress counter will recalculate your average goal range and generate a random number according to your progress.  </p>
+
+                
+            </h3>
             <Link to="/goals">
                 <button> I'm ready, let's set a goal! </button>
+            </Link>
+            <Link to="/progress">
+                <button> Take me to my goal! </button>
             </Link>
           </div>
 

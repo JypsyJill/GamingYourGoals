@@ -16,6 +16,7 @@ CREATE TABLE goal (
     time_to_text TIME,
     no_prog_days_of_wk INTEGER,
     no_prog_cal_days DATE,
-    goal_prog INTEGER
+    goal_prog INTEGER, 
+    user_id
     
 );

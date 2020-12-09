@@ -2,18 +2,30 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     setNewGoal: async (req, res) => {
-        const db = req.app.get('db')
-    
-        const [oneGoalAtATime] = await db.check_date(req.session.user.userId)
-        if (oneGoalAtATime) { return res.status(400).send('You are already working on a goal')}
-    
-        const [newGoal] = await db.add_goal(req.body)
-        res.status(200).send(newGoal)
+        try {
+            const db = req.app.get('db')
+            const {userId} = req.session.user
+            const [oneGoalAtATime] = await db.check_date(userId)
+            if (oneGoalAtATime) { return res.status(400).send('You are already working on a goal')}
+            const [newGoal] = await db.add_goal({...req.body, userId})
+            res.status(200).send(newGoal)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send(err)
+        }
     },
   
 
     updateGoal: async (req, res) => {
-        const db = req.app.get('db');
-        const { goal_prog } = req.body
+        try {
+            const db = req.app.get('db');
+            const {userId} = req.session.user
+            const [updateProgress] = await db.get_progress(userId)
+            const [todaysProgress] = await db.update_prog({...req.body, userId})
+            res.status(200).send(updateProgress)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send(err)
+        }
     }
 }
