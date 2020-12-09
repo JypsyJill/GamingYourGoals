@@ -14,14 +14,14 @@ module.exports = {
             res.status(400).send(err)
         }
     },
-  
+    getGoalData: 
 
     updateGoal: async (req, res) => {
         try {
             const db = req.app.get('db');
             const {userId} = req.session.user
             const [updateProgress] = await db.get_progress(userId)
-            const [todaysProgress] = await db.update_prog({...req.body, userId})
+            const [todaysProgress] = await db.update_total({...req.body, userId})
             res.status(200).send(updateProgress)
         } catch (err) {
             console.log(err)

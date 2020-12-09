@@ -20,3 +20,12 @@ CREATE TABLE goal (
     user_id
     
 );
+
+CREATE TABLE prog_date_time_progress (
+    user_id INT REFERENCES goal_diggers(user_id),
+    progress_for_the_day INTEGER,
+    next_date_and_time_to_text DATE,
+    random_challenge_for_the_day INTEGER,
+    goal_prog INT REFERENCES goal(user_id)
+    
+)

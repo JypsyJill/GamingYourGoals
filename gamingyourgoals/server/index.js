@@ -40,6 +40,7 @@ app.get('/api/user', auth.getUser);
 // Goal endpoints
 app.post('/api/goal', goals.setNewGoal);
 app.put('/api/goal/:id', goals.updateGoal);
-
+app.get('/api/goal/:id', goals.getGoalData);
+app.post('/api/goal:id',  )
 
 app.listen(SERVER_PORT, () => console.log(`Hello Seattle, I'm listening... on port ${SERVER_PORT}`));
