@@ -17,25 +17,17 @@ class Math extends Component {
     
   }
 }
-// calculates the number of days between dates
-export const dateDiff = (startDate, endDate) => {
-  const diff = Date.parse(endDate) - Date.parse(startDate)
-  return Math.floor(diff / 86400000)
-}
-  
-
-const endDay = new Date('Dec 31, 2020')
-let startDay = new Date('Dec 1, 2020')
-
+// let beg_date = this.state.beg_date;
+// let end_date = this.state.end_date;
 // calculates number of days of the week excluding Sundays (will update to make any day of the week excludable, including multiple days)
 
-export function getNumberOfWeekDays(startDay, endDay, dayNum){
+export function getNumberOfWeekDays(beg_date, end_date, dayNum){
   // Sunday's num is 0 with Date.prototype.getDay.
   dayNum = dayNum || 0;
   // Calculate the number of days between start and end.
-  var daysInInterval = Math.ceil((endDay.getTime() - startDay.getTime()) / (1000 * 3600 * 24));
+  var daysInInterval = Math.ceil((end_date.getTime() - beg_date.getTime()) / (1000 * 3600 * 24));
   // Calculate the nb of days before the next target day (e.g. next Sunday after start).
-  var toNextTargetDay = (7 + dayNum - startDay.getDay()) % 7;
+  var toNextTargetDay = (7 + dayNum - beg_date.getDay()) % 7;
   // Calculate the number of days from the first target day to the end.
   var daysFromFirstTargetDay = Math.max(daysInInterval - toNextTargetDay, 0);
   // Calculate the number of weeks (even partial) from the first target day to the end.
@@ -43,11 +35,12 @@ export function getNumberOfWeekDays(startDay, endDay, dayNum){
 }
 
 // calculate the number of progress days
-let nonProgDays = (getNumberOfWeekDays(startDay, endDay))
-// console.log(nonProgDays)
-let dateDiff = endDay.getTime() - startDay.getTime();
-let days = dateDiff/(1000*3600*24)+1-nonProgDays;
+export const dateDiff = (endDate, begDate) => {
+  const nonProgDays = getNumberOfWeekDays(endDate, begDate)
+  const difference = endDate.getTime() - begDate.getTime()
 
+  return difference / (1000 * 3600 * 24) + 1 - nonProgDays
+}
 // calculate the range of numbers so randomization occurs properly
 
 export function getRndInteger(min, max) {
@@ -62,16 +55,3 @@ export function smallNum(n) {
 }
 return result;
 }
-
-console.log(cjGoal)
-console.log(cjMin)
-console.log(cjMax)
-getRndInteger(cjMin, cjMax)
-console.log(smallNum(getRndInteger(cjMin,cjMax)))
-// console.log (days)
-
-
-// console.log (endDay)
-// console.log (startDay)
-// 
-

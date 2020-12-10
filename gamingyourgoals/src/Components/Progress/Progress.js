@@ -6,6 +6,7 @@ class Progress extends Component {
     constructor(){
         super();
         this.state = {
+            timeStamp: '',
             goal_type: '',
             end_date: '',
             target_number: '',
@@ -28,7 +29,7 @@ class Progress extends Component {
             const goal = await axios.post("/api/goal", this.state)
             this.props.history.push("/feed")
         } catch (err) {
-            alert(err.response.request.respons)
+            alert(err.response.request.response)
         }
     }
     render() {
