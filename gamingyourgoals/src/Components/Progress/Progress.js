@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import Math from "./Math";
+import {dateDiff, getNumberOfWeekDays, getRndInteger, smallNum} from "../Math/Math";
 
 class Progress extends Component {
     constructor(){
@@ -41,7 +41,7 @@ class Progress extends Component {
         //     {id: "time_to_text", label: "What time would you like to receive your challenge each day?", type: "time" },
         //     {id: "no_prog_days_of_wk", label:"Do you black out any days of the week from your progress? (like Sundays, etc.)" , type: "text" },
         //     {id: "no_prog_cal_days", label: "Are there any specific dates you're not going to work on?" , type: "date" }
-          ];
+        //   ];
         return (
            
             <div>
@@ -59,8 +59,9 @@ class Progress extends Component {
               <button onClick={this.toggleNewGoal}> Cancel input and start over? </button>
             </div>
             
-        )
+        );
         
     }
+}
 
 export default Progress;
