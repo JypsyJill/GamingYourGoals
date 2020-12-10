@@ -14,7 +14,17 @@ module.exports = {
             res.status(400).send(err)
         }
     },
-    getGoalData: 
+    getGoalData: async (req, res) => {
+        try {
+            const db = req.app.get('db')
+            const {userId} = req.session.user
+            const [progressChecker] = await db.get_progress(userId)
+            res.status(200).send(progressChecker)
+         } catch (err) {
+             console.log(err)
+             res.status(400).send(err)
+         }
+    }, 
 
     updateGoal: async (req, res) => {
         try {
