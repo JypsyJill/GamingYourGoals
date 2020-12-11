@@ -41,7 +41,7 @@ app.get('/api/user', auth.getUser);
 // Goal endpoints
 app.post('/api/goal', goals.setNewGoal);
 app.put('/api/goal/:id', goals.updateGoal);
-app.get('/api/goal/:id', goals.getGoalData);
+app.get('/api/goal', goals.getGoalData);
 app.post('/api/progress', progController.totalGoal);
 
 

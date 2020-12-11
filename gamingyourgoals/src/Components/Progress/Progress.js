@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import {dateDiff, getNumberOfWeekDays, getRndInteger, smallNum, getDaysArray, percentComplete} from "../Math/Math";
+import {dateDiff, getNumberOfWeekDays, getRndInteger, smallNum, percentComplete, cjMinCalc, cjMaxCalc} from "../Mathematics/Mathematics";
 
 class Progress extends Component {
     constructor(){
@@ -16,17 +16,19 @@ class Progress extends Component {
             no_prog_cal_days: '',
             goal_prog: '',
             progress_for_the_day:'',
-            goal_total: '',
             goalPercent: '',
             next_date_and_time_to_text: '',
             random_challenge_for_the_day: '',
             cjMin: '',
-            cjMax: ''
+            cjMax: '',
+            days: '',
+            non_prog_days: ''
         }
     }
-    componentDidMount = async () => {
+     async componentDidMount () {
         const goal = await axios.get("/api/goal")
-        this.setState(goal)
+        this.setState(goal.data)
+        console.log(goal)
       }
 
     changeHandler = (e) => {
@@ -35,29 +37,29 @@ class Progress extends Component {
         })
     }
 
-//total is the total amount of words (for example)
-    progressSubmitted = async e => {
-        e.preventDefault()
-        try {
-
-// put math functions to calculate state updates here
-        getNumberOfWeekDays(this.state.end_date, this.state.beg_date, 0)
-        dateDiff(this.state.end_date, this.state.beg_date)
-        days = this.state.end_date - nonProgDays
-        smallNum(getRndInteger(this.state.cjMin, cjMax))
-        getDaysArray(e.getDay(beg_date, end_date))
-        console.log(getDaysArray)
-
-        const updatedGoalRes = await axios.post("/api/progress", this.state)
-        const goalPercent = percentComplete(this.state.target_number, updatedGoalRes)
-      
-          this.setState({goalPercent})
-        } catch (err) {
-          console.log(err.response.request.response)
-        }
-      }
+// total is the total amount of words (for example)
+progressSubmitted = async e => {
+    e.preventDefault()
+    const { beg_date, end_date, target_number, goal_prog } = this.state
+    const howManyWritten = target_number - goal_prog
+  
+    const numOfWeekDays = getNumberOfWeekDays(beg_date, end_date)
+    const dateDifference = dateDiff(beg_date, end_date)
+    const min = cjMinCalc(howManyWritten, dateDifference)
+    const max = cjMaxCalc(howManyWritten, dateDifference)
+    const random_challenge_for_the_day = smallNum(getRndInteger(min, max))
+  
+    try {
+      const updatedGoalRes = await axios.post("/api/progress", this.state)
+      const goalPercent = percentComplete(target_number, updatedGoalRes)
+  
+      this.setState({goalPercent})
+    } catch (err) {
+      console.log(err.response.request.response)
+    }
+  }
     render() {
-        const {progress_for_the_day, next_date_and_time_to_text, random_challenge_for_the_day, goal_total, time} = this.state;
+        const {progress_for_the_day, next_date_and_time_to_text, random_challenge_for_the_day, goal_prog, time} = this.state;
         return (
             <div className="Progress">
             
@@ -69,28 +71,11 @@ class Progress extends Component {
                         onChange={ e => this.changeHandler(e)}
                     />
                 </form>
-                <button onClick={this.toggleTime}>Record my progress</button>
+                <button onClick={this.progressSubmitted}>Record my progress</button>
+
 
             </div>
 
-
-        
-           
-            // <div>
-            //     <form onSubmit={e => this.setNewGoal(e)}>
-                    
-            // {goalInputsMapped.map(goalInput => (
-            //     <div className="goal-input">
-            //         <label htmlFor={goalInput.id}>{goalInput.label}</label>
-            //         <input type={goalInput.type} id={goalInput.id} onChange={e => this.changeHandler(e)}/>
-            //     </div>
-            
-            // ))}
-            //     <button>Submit</button>
-            //     </form>
-            //   <button onClick={this.toggleNewGoal}> Cancel input and start over? </button>
-            // </div>
-            
         );
         
     }
