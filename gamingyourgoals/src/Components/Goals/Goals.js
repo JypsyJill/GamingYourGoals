@@ -49,8 +49,8 @@ class Goals extends Component {
             {id: "target_number", label: "How many total will complete your goal? " , type: "number" },
             {id: "time_zone", label: "What is your time zone?" , type: "text" },
             {id: "time_to_text", label: "What time would you like to receive your challenge each day?", type: "time" },
-            {id: "no_prog_days_of_wk", label:"Do you black out any days of the week from your progress? (like Sundays, etc.)" , type: "text" },
-            {id: "no_prog_cal_days", label: "Are there any specific dates you're not going to work on?" , type: "date" }
+            {id: "no_prog_days_of_wk", label:"Do you work on Sundays?" , type: "text" },
+            // {id: "no_prog_cal_days", label: "Are there any specific dates you're not going to work on?" , type: "date" }
           ];
         return (
            

@@ -8,6 +8,7 @@ const session = require('express-session');
 const {SESSION_SECRET, SERVER_PORT, CONNECTION_STRING} = process.env;
 const auth = require('./controllers/authController');
 const goals = require('./controllers/goalsController');
+const progController = require('./controllers/progController');
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.get('/api/user', auth.getUser);
 app.post('/api/goal', goals.setNewGoal);
 app.put('/api/goal/:id', goals.updateGoal);
 app.get('/api/goal/:id', goals.getGoalData);
+app.post('/api/progress', progController.totalGoal);
 
 
 app.listen(SERVER_PORT, () => console.log(`Hello Seattle, I'm listening... on port ${SERVER_PORT}`));
