@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import {dateDiff, getNumberOfWeekDays, getRndInteger, smallNum} from "../Math/Math";
+import {dateDiff, getNumberOfWeekDays, getRndInteger, smallNum, getDaysArray} from "../Math/Math";
 
 class Progress extends Component {
     constructor(){
         super();
         this.state = {
-            timeStamp: '',
             goal_type: '',
             end_date: '',
             target_number: '',
@@ -14,8 +13,17 @@ class Progress extends Component {
             time_to_text: '',
             no_prog_days_of_wk: '',
             no_prog_cal_days: '',
-            goal_prog: ''
+            goal_prog: '',
+            progress_for_the_day:'',
+            goal_total: '',
+            checkinTime: 'false'
         }
+    }
+
+    toggleTime = () => {
+        this.setState({
+            checkinTime: !this.state.checkinTime
+        })
     }
     changeHandler = (e) => {
         this.setState({
@@ -23,42 +31,51 @@ class Progress extends Component {
         })
     }
 
-    update_goal = async e => {
+    
+     totalGoal = async e => {
         e.preventDefault()
         try {
-            const goal = await axios.post("/api/goal", this.state)
+            const goal_total = await axios.post("/api/goal", this.state)
+            alert(next_date_and_time_to_text)
             this.props.history.push("/feed")
         } catch (err) {
             alert(err.response.request.response)
         }
     }
     render() {
-        // const goalInputsMapped = [
-        //     {id: "goal_type", label: "Counting:" {goal_type}, type: "text"},
-        //     {id: "beg_date", label: "When are you starting?", type: "date"},
-        //     {id: "end_date", label: "When are you finishing?", type: "date"},
-        //     {id: "target_number", label: "How many total will complete your goal? " , type: "number" },
-        //     {id: "time_zone", label: "What is your time zone?" , type: "text" },
-        //     {id: "time_to_text", label: "What time would you like to receive your challenge each day?", type: "time" },
-        //     {id: "no_prog_days_of_wk", label:"Do you black out any days of the week from your progress? (like Sundays, etc.)" , type: "text" },
-        //     {id: "no_prog_cal_days", label: "Are there any specific dates you're not going to work on?" , type: "date" }
-        //   ];
+        const {progress_for_the_day, next_date_and_time_to_text, random_challenge_for_the_day, goal_total, time} = this.state;
         return (
-           
-            <div>
-                <form onSubmit={e => this.setNewGoal(e)}>
-                    
-            {goalInputsMapped.map(goalInput => (
-                <div className="goal-input">
-                    <label htmlFor={goalInput.id}>{goalInput.label}</label>
-                    <input type={goalInput.type} id={goalInput.id} onChange={e => this.changeHandler(e)}/>
-                </div>
+            <div className="Progress">
             
-            ))}
-                <button>Submit</button>
+               <h3>HOW DID YOU DO?</h3>
+                <form onSubmit={e => this.update_goal(e)}>
+                    <input
+                        name="progress_for_the_day"
+                        placeholder="input your day's progress here"
+                        onChange={ e => this.changeHandler(e)}
+                    />
                 </form>
-              <button onClick={this.toggleNewGoal}> Cancel input and start over? </button>
+                <button onClick={this.toggleTime}>Record my progress</button>
+
             </div>
+
+
+        
+           
+            // <div>
+            //     <form onSubmit={e => this.setNewGoal(e)}>
+                    
+            // {goalInputsMapped.map(goalInput => (
+            //     <div className="goal-input">
+            //         <label htmlFor={goalInput.id}>{goalInput.label}</label>
+            //         <input type={goalInput.type} id={goalInput.id} onChange={e => this.changeHandler(e)}/>
+            //     </div>
+            
+            // ))}
+            //     <button>Submit</button>
+            //     </form>
+            //   <button onClick={this.toggleNewGoal}> Cancel input and start over? </button>
+            // </div>
             
         );
         

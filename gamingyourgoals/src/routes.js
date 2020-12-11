@@ -10,6 +10,6 @@ export default (
     <Route exact path="/" component={Auth} />
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/goals" component={Goals}/>
-    <Route path="/new" component={Progress}/>
+    <Route path="/progress" component={Progress}/>
   </Switch>
 );

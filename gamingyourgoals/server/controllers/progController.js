@@ -12,5 +12,17 @@ module.exports = {
             console.log(err)
             res.status(400).send(err)
         }
+    },
+
+    totalGoal: async (req, res) => {
+        try {
+            const db = req.app.get('db')
+            const {userID} = req.session.user
+            const [updatedProgress] = await db.update_total({...req.body, userID})
+            res.status(200).send(updatedProgress)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send(err)
+        }
     }
 }
