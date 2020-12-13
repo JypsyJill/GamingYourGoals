@@ -5,7 +5,7 @@ import { percentComplete, totalProgress, randomNumFromRange } from "../Mathemati
 class Progress extends Component {
     constructor(){
         super();      
-let state = {
+this.state = {
     goal_type: "",
     beg_date: "",
     end_date: "",
