@@ -1,128 +1,65 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 
-class Mathematics extends Component {
-  constructor(){
-    super();
-    this.state = {
-      beg_date: '',
-      end_date: '',
-      target_number: '',
-      time_zone: '',
-      time_to_text: '',
-      no_prog_days_of_wk: '',
-      no_prog_cal_days: '',
-      user_id: '',
-      goal_total: ''
-    }
-    
-  }
-}
-// let beg_date = this.state.beg_date;
-// let end_date = this.state.end_date;
-// calculates number of days of the week excluding Sundays (will update to make any day of the week excludable, including multiple days)
+/////////////////////////////////////////// mathmetics.js /////////////////////////////////////////////////////
 
-export function getNumberOfWeekDays(begDay, endDay, dayNum){
-  // Sunday's num is 0 with Date.prototype.getDay.
-  const begDate = new Date(begDay)
-  const endDate = new Date(endDay)
-  dayNum = dayNum || 0;
-  // Calculate the number of days between start and end.
-  const daysInInterval = ((endDate.getTime() - begDate.getTime()) / (1000 * 3600 * 24));
-  // Calculate the nb of days before the next target day (e.g. next Sunday after start).
-  var toNextTargetDay = (7 + dayNum - begDate.getDay()) % 7;
-  // Calculate the number of days from the first target day to the end.
-  var daysFromFirstTargetDay = (daysInInterval - toNextTargetDay, 0);
-  // Calculate the number of weeks (even partial) from the first target day to the end.
-  return (daysFromFirstTargetDay / 7);
-}
 
-// calculate the number of progress days
-export const dateDiff = (endDay, begDay) => {
-  const begDate = new Date(begDay)
-  const endDate = new Date(endDay)
-  const nonProgDays = getNumberOfWeekDays(endDate, begDate)
-  const difference = endDate.getTime() - begDate.getTime()
-
-  return difference / (1000 * 3600 * 24) + 1 - nonProgDays
-}
-
-export const cjMinCalc = (target, days) => {
-  return (target/days)*.85
-}
-export const cjMaxCalc = (target,days) => {
-  return (target/days)*1.15
-}
-// calculate the range of numbers so randomization occurs properly
-
+//total represents target_number
 const percentage = (total, progress) => Math.round((progress / total) * 100)
 
-export const percentComplete = (total, updatedGoalRes) => {
-  const totalProgress = updatedGoalRes.reduce((acc, currentVal) => acc + currentVal.goal_prog, 0)
-  return `${percentage(total, totalProgress)}%`
+//takes the response from the axios request and gets all the progress_for_the_day (updatedGoalRes)
+export const totalProgress = goals => goals.reduce((acc, currentVal) => acc + currentVal.progress_for_the_day, 0)
+
+//export this to get the goalPercent
+export const percentComplete = (targetNum, totalProgressNum) => {
+  const calculatedPercent = percentage(targetNum, totalProgressNum)
+
+  return `${calculatedPercent}%`
 }
 
-export function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-export function smallNum(n) {
-  let result;
-  if (n > 99) {
-  result = (n).toFixed(0)
-} else {
-  result = (Math.round(n *4)/4).toFixed(2)
-}
-return result;
-}
+//FORMERLY getNumberOfWeekDays - RENAMED FOR BETTER UNDERSTANDING
+//gets the number of days OFF you have between now and the deadline
+//dayNum renamed to dayOff for better readability, also dayoff = 0 is the same as dayOff = dayOff || 0
+const getNumberOfDaysOff = (begDate, endDate, weekDayOff) => {
 
-// export function getDaysArray(year, month) {
-//   var numDaysInMonth, daysInWeek, daysIndex, index, i, l, daysArray;
+  const daysInInterval = (endDate.getTime() - begDate.getTime()) / (1000 * 3600 * 24)
 
-//   numDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-//   daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-//   daysIndex = {
-//     'Sun': 0,
-//     'Mon': 1,
-//     'Tue': 2,
-//     'Wed': 3,
-//     'Thu': 4,
-//     'Fri': 5,
-//     'Sat': 6
-//   };
-//   index = daysIndex[(new Date(year, month - 1, 1)).toString().split(' ')[0]];
-//   daysArray = [];
-
-//   for (i = 0, l = numDaysInMonth[month - 1]; i < l; i++) {
-//     if (daysInWeek[index++] == "Sunday" || daysInWeek[index++] == "Saturday") {
-//       continue; //I tried: no success.
-//     }
-//     daysArray.push({
-//     alldates});
-
-//     if (index == 7) index = 0;
-//   }
-
-//   return daysArray;
-// }
-// // console.log(getDaysArray(startDay, endDay));
+  const toNextTargetDay = (7 + weekDayOff - begDate.getDay()) % 7
+  const daysFromFirstTargetDay = Math.max(daysInInterval - toNextTargetDay, 0)
  
-//  var dates = function(startDay, endDay) {
-//   var dates = [],
-//       currentDate = startDay,
-//       addDays = function(days) {
-//         var date = new Date(this.valueOf());
-//         date.setDate(date.getDate() + days);
-//         return date;
-//       };
-//   while (currentDate <= endDay) {
-//     dates.push(currentDate);
-//     currentDate = addDays.call(currentDate, 1);
-//   }
-//   return dates;
-// };
+  return Math.ceil(daysFromFirstTargetDay / 7)
+}
 
-// var dates = dates(startDay, endDay);
+//This combines min & max calc, getRndInteger, and smallNum
+const getRndChallengeNum = (targetNum, totalProgressNum, dateDiff) => {
+  const division = ( targetNum - totalProgressNum) / dateDiff
 
-// console.log(dates);
+  const min = division * 0.85
+  const max = division * 1.15
 
+  const randInt = Math.floor(Math.random() * (max - min)) + min
 
+  return randInt > 99 ? randInt.toFixed(0)
+      : (Math.round(randInt * 4) / 4).toFixed(2)
+}
+
+//Though I'm not sure if you want to calculate from the beginning day, so here's a new function that calculated the difference of days between today and the end date 
+const dateDiff = (endDate, weekDayOff) => {
+  const today = new Date().getDate()
+  let tomorrow = new Date()
+  tomorrow.setDate(today + 1)
+
+  const nonProgDays = getNumberOfDaysOff(tomorrow, endDate, weekDayOff)
+  const difference = endDate.getTime() - tomorrow.getTime()
+
+  return Math.floor(difference / (1000 * 3600 * 24) + 1 - nonProgDays)
+}
+
+export const randomNumFromRange = (targetNum, totalProgressNum, endDayStr, weekDayOff = 0) => {
+  const endDate = new Date(endDayStr)
+
+  const dateDifference = dateDiff(endDate, weekDayOff)
+  const challengeNum = getRndChallengeNum(targetNum, totalProgressNum, dateDifference)
+
+  return challengeNum
+}

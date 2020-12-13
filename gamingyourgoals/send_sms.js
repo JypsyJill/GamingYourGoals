@@ -10,6 +10,6 @@ client.messages
   .create({
       from: TWILIO_PHONE_NUMBER,
       to: MY_PHONE_NUMBER,
-      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+      body: 'Your challenge for the day is ',
    })
   .then((message) => console.log(message.sid));

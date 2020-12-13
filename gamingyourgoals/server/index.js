@@ -1,9 +1,9 @@
 require('dotenv').config();
-
 const express = require('express');
 const ctrl = require('./controllers/authController')
 const massive = require('massive');
 const session = require('express-session');
+const path = require('path')
 
 const {SESSION_SECRET, SERVER_PORT, CONNECTION_STRING} = process.env;
 const auth = require('./controllers/authController');
@@ -44,5 +44,9 @@ app.put('/api/goal/:id', goals.updateGoal);
 app.get('/api/goal', goals.getGoalData);
 app.post('/api/progress', progController.totalGoal);
 
+app.use(express.static(__dirname + '/../build'));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 app.listen(SERVER_PORT, () => console.log(`Hello Seattle, I'm listening... on port ${SERVER_PORT}`));
