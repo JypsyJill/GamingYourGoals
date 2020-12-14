@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import "./Goals.css";
 
 class Dashboard extends Component {
-    render() {
+  render() {
         return (
           <div className="Dashboard">
             <h1>Ready to Game Your Goals?</h1>

@@ -5,7 +5,7 @@ import { percentComplete, totalProgress, randomNumFromRange } from "../Mathemati
 class Progress extends Component {
     constructor(){
         super();      
-this.state = {
+    this.state = {
     goal_type: "",
     beg_date: "",
     end_date: "",
@@ -26,48 +26,46 @@ this.state = {
     //CALCULATED STATE (added on)
     goalPercent: "",
     random_challenge_for_the_day: "",
-    // updatedGoalRes: "",
+    updatedGoalRes: "",
     goal_prog: ''
-  
-  
+   
 }
+    }
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
 
-// currentState = async (e) => {
-//     e.preventDefault()
-//     const updatedGoalRes = await axios.get("/api/progress", this.state)
-// } catch (err) {
-//     alert(err.response.request.response)
-// }
-// }
-  //DUMMY DATA
-//   updatedGoalRes = [
-//     {progress_for_the_day: 2400},
-//     {progress_for_the_day: 2600},
-//     {progress_for_the_day: 7889}
-//   ]
+updatedGoalRes = async (e) => {
+    e.preventDefault()
+    const {updatedGoalRes, progress_for_the_day} = await axios.post('/api/progress')
+} 
+
+progressSubmitted = async (e) => {
+e.preventDefault()
+    const { progressSubmitted, goalProgress, goalPercent, random_challenge_for_the_day } = this.state;
+}
+//    const { end_date, target_number, challengeNum, updatedGoalRes } = this.state
+   // This represents goal_prog on state
+//  goalProgress = totalProgress(updatedGoalRes)
+//  goalPercent = percentComplete(target_number, goalProgress)
+//  challengeNum = randomNumFromRange(target_number, goalProgress, end_date)
   
   
-  
- 
-const progressSubmitted = () => {
-    const { end_date, target_number } = state
-    //This represents goal_prog on state
-//   goalProgress = totalProgress(updatedGoalRes)
-//   goalPercent = percentComplete(target_number, goalProgress)
-//   challengeNum = randomNumFromRange(target_number, goalProgress, end_date)
   
     // console.log("Words Written: ", goalProgress)
     // console.log("Goal Percentage: ", goalPercent)
     // console.log("Tomorrow's Challenge: ", challengeNum)
-  
-    //   this.setState({goalPercent, goal_prog: goalProgress, random_challenge_for_the_day: challengeNum})
+// progressSubmitted ()
+        //   goalPercent, goal_prog: goalProgress, random_challenge_for_the_day: challengeNum
+        // });
     // } catch (err) {
     //   console.log(err.response.request.response)
-    // }
-  
+//     }
+
   
 
-//   progressSubmitted()
   
 //   updatedGoalRes.push({progress_for_the_day: 1111})
 //   console.log("/////////////////////NEXT DAY/////////////////")
@@ -77,7 +75,7 @@ const progressSubmitted = () => {
 //   progressSubmitted()
 
 // render() 
-    const {progressSubmitted, goalProgress, goalPercent, random_challenge_for_the_day} = this.state;
+render() {
     return (
         <div className="Progress">
             
@@ -95,11 +93,8 @@ const progressSubmitted = () => {
 
             </div>
 
-        );
-        
-    }
-}
-
+    );
+  }
 }
 
 export default Progress;
