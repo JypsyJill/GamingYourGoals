@@ -16,7 +16,7 @@ class Progress extends Component {
             no_prog_cal_days: "",
             goal_id: '',
             user_id: '',
-            progress_for_the_day: '2165',
+            progress_for_the_day: '',
             goalPercent: "15",
             random_challenge_for_the_day: "2175",
             goal_prog: '2100',

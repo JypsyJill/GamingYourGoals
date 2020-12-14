@@ -10,6 +10,6 @@ client.messages
   .create({
       from: TWILIO_PHONE_NUMBER,
       to: MY_PHONE_NUMBER,
-      body: 'Your challenge for the day is ',
+      body: 'Your challenge for the day is 2196 words',
    })
   .then((message) => console.log(message.sid));
