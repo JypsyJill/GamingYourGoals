@@ -11,7 +11,7 @@ const percentage = (total, progress) => Math.round((progress / total) * 100)
 export const totalProgress = goals => goals.reduce((acc, currentVal) => acc + currentVal.progress_for_the_day, 0)
 
 //export this to get the goalPercent
-export const percentComplete = (targetNum, totalProgressNum) => {
+export const percentComplete = (target_number, totalProgress) => {
   const calculatedPercent = percentage(targetNum, totalProgressNum)
 
   return `${calculatedPercent}%`
@@ -20,7 +20,7 @@ export const percentComplete = (targetNum, totalProgressNum) => {
 //FORMERLY getNumberOfWeekDays - RENAMED FOR BETTER UNDERSTANDING
 //gets the number of days OFF you have between now and the deadline
 //dayNum renamed to dayOff for better readability, also dayoff = 0 is the same as dayOff = dayOff || 0
-const getNumberOfDaysOff = (begDate, endDate, weekDayOff) => {
+export const getNumberOfDaysOff = (begDate, endDate, weekDayOff) => {
 
   const daysInInterval = (endDate.getTime() - begDate.getTime()) / (1000 * 3600 * 24)
 
