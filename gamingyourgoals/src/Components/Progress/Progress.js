@@ -16,10 +16,11 @@ class Progress extends Component {
             no_prog_cal_days: "",
             goal_id: '',
             user_id: '',
-            progress_for_the_day: '',
-            goalPercent: "",
-            random_challenge_for_the_day: "",
-            goal_prog: ''
+            progress_for_the_day: '2165',
+            goalPercent: "15",
+            random_challenge_for_the_day: "2175",
+            goal_prog: '2100',
+            totalProgress: '2100'
     
 }
     }
@@ -27,20 +28,25 @@ class Progress extends Component {
         const goal = await axios.get("/api/goal")
         this.setState(goal.data)
     }
-    changeHandler = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+        changeHandler = (e) => {
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
+    // async componentDidMount () {
+    //     const results = await axios.get("/api/prog_date_time_progress")
+    //     this.setState(results.data)
+    // }
 
-updatedGoalRes = async (e) => {
+totalGoal = async (e) => {
     e.preventDefault()
-    const {updatedGoalRes, progress_for_the_day, getNumberOfDaysOff, getRndChallengeNum, dateDiff, randomNumFromRange} = await axios.post('/api/progress')
+    const {totalProgress, progress_for_the_day, getNumberOfDaysOff, getRndChallengeNum, dateDiff, randomNumFromRange} = await axios.post('/api/progress')
 } 
 
 progressSubmitted = async (e) => {
 e.preventDefault()
-const { progressSubmitted, goalProgress, goalPercent, random_challenge_for_the_day } = this.state;
+const { progressSubmitted, totalProgress, goalPercent, random_challenge_for_the_day } = this.state;
+
 }
 
 
@@ -63,9 +69,6 @@ render() {
                 <button onClick={this.progressSubmitted}>Record my progress</button>
 
                 <h3> Here's how you're doing so far:</h3>
-               {/* <h1>
-                 <Greeting/>
-                </h1> */}
 
 
 

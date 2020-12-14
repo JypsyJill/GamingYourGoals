@@ -5,10 +5,10 @@
 
 
 //total represents target_number
-const percentage = (total, progress) => Math.round((progress / total) * 100)
+export const percentage = (total, progress) => Math.round((progress / total) * 100)
 
 //takes the response from the axios request and gets all the progress_for_the_day (updatedGoalRes)
-export const totalProgress = goals => goals.reduce((acc, currentVal) => acc + currentVal.progress_for_the_day, 0)
+export const totalProgress = ((acc, currentVal) => acc + currentVal.progress_for_the_day, 0)
 
 //export this to get the goalPercent
 export const percentComplete = (target_number, totalProgress) => {
