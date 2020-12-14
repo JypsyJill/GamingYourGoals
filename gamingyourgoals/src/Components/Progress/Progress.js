@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { percentComplete, totalProgress, randomNumFromRange } from "../Mathematics/Mathematics";
 
 class Progress extends Component {
@@ -63,7 +63,10 @@ render() {
                 <button onClick={this.progressSubmitted}>Record my progress</button>
 
                 <h3> Here's how you're doing so far:</h3>
-                
+               {/* <h1>
+                 <Greeting/>
+                </h1> */}
+
 
 
             </div>

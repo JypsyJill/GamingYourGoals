@@ -12,7 +12,7 @@ export const totalProgress = goals => goals.reduce((acc, currentVal) => acc + cu
 
 //export this to get the goalPercent
 export const percentComplete = (target_number, totalProgress) => {
-  const calculatedPercent = percentage(targetNum, totalProgressNum)
+  const calculatedPercent = percentage(target_number, totalProgress)
 
   return `${calculatedPercent}%`
 }
