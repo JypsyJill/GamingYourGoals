@@ -19,6 +19,7 @@ module.exports = {
             const db = req.app.get('db')
             const {userId} = req.session.user
             const [progressChecker] = await db.get_progress(userId)
+            const [dayDiff] = await db.get_day_diff(userID)
             res.status(200).send(progressChecker)
          } catch (err) {
              console.log(err)
