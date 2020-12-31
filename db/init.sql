@@ -8,21 +8,28 @@ CREATE TABLE goal_diggers (
 
 CREATE TABLE goal (
     goal_id SERIAL PRIMARY KEY,
-    goal_type VARCHAR(20)
+    goal_type VARCHAR(20),
     beg_date DATE,
     end_date DATE,
-    target_number INTEGER(20),
-    time_zone VARCHAR(20),
+    target_number INTEGER,
+    time_zone VARCHAR,
     time_to_text TIME,
-    no_prog_days_of_wk INTEGER,
-    no_prog_cal_days DATE
+    user_id INT REFERENCES goal_diggers(user_id)
     
 );
 
--- INSERT INTO goal (goal_type, start_date, end_date, target_number, timeZone, timeToText)
--- VALUES ('miles', '2020-12-01', '2020-12-31', 250, 'MST', '05:15:00')
-
--- CREATE TABLE gamePlay (
---     username INT REFERENCES goal_diggers(username),
---     daily_goals_array 
--- )
+CREATE TABLE prog_date_time_progress (
+    user_id INT REFERENCES goal_diggers(user_id),
+    progress_for_the_day INTEGER,
+    next_date_and_time_to_text DATE,
+    random_challenge_for_the_day INTEGER,
+    total_progress INTEGER,
+    what_time_is_it CURRENT_TIMESTAMP,
+    howmanywritten INTEGER,
+    updated_goal_res INTEGER,
+    thediff INTEGER,
+    minimumrand INTEGER, 
+    currentaverage INTEGER, 
+    maxrand INTEGER
+    
+)
