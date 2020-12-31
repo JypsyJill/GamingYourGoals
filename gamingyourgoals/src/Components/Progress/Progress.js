@@ -17,10 +17,10 @@ class Progress extends Component {
             goal_id: '',
             user_id: '',
             progress_for_the_day: '',
-            goalPercent: "15",
-            random_challenge_for_the_day: "2175",
-            goal_prog: '2100',
-            totalProgress: '2100'
+            goalPercent: "",
+            random_challenge_for_the_day: "",
+            goal_prog: '',
+            totalProgress: ''
     
 }
     }
