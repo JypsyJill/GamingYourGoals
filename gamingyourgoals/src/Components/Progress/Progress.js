@@ -20,7 +20,9 @@ class Progress extends Component {
             goalPercent: "",
             random_challenge_for_the_day: "",
             goal_prog: '',
-            totalProgress: ''
+            updated_goal_res: '',
+            dateDiff: '',
+            getRndChallengeNum: ''
     
 }
     }
